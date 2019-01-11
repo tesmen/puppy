@@ -1,0 +1,87 @@
+<style>
+    .cell {
+        /*min-height: 10px;*/
+        /*min-width: 10px;*/
+        border: 1px solid grey;
+        padding: 5px;
+    }
+
+    .wall {
+        background-color: grey;
+    }
+
+    .dog {
+        background-color: orangered;
+    }
+
+    .bone {
+        background-color: darkolivegreen;
+    }
+</style>
+
+
+<script src="angular.js"></script>
+
+<script type="text/javascript">
+    function generateMap(x, y) {
+        let res = [];
+
+        for (let ix = 0; ix < x; ix++) {
+            res[ix] = [];
+
+            for (let iy = 0; iy < y; iy++) {
+                res[ix][iy] =
+                {
+                    isWall: false,
+                    isVisited: false
+                };
+            }
+        }
+
+        return res;
+    }
+
+    function makeWall(ys, xs, ye, xe, map) {
+        for (let ix = xs; ix <= xe; ix++) {
+            for (let iy = ys; iy <= ye; iy++) {
+                map[ix][iy].isWall = true;
+            }
+        }
+    }
+
+    dogCtrl = function ($scope) {
+        $scope.setDogTo = function (x, y) {
+            $scope.map[y][x].isDog = true;
+        };
+
+        $scope.go = function () {
+            let currentXdelta =
+        };
+
+        $scope.foo = 100;
+        $scope.map = generateMap(60, 60);
+        makeWall(1, 5, 2, 9, $scope.map);
+        $scope.setDogTo(45, 25);
+        $scope.map[5][55].isBone = true;
+
+
+        console.log($scope.map)
+    };
+
+
+    let app = angular
+            .module('dog', [])
+            .controller('dogCtrl', dogCtrl);
+</script>
+
+<body>
+<div ng-app="dog" ng-controller="dogCtrl">
+    <table>
+        <tr ng-repeat="col in map track by $index" class="column">
+            <td ng-repeat="block in col track by $index" class="cell"
+                ng-class="{wall:block.isWall, dog:block.isDog, bone:block.isBone, visited:block.isVisited, pristine:!block.isVisited}">
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
